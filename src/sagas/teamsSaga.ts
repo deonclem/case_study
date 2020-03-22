@@ -1,11 +1,11 @@
 import { takeEvery, call, put } from "redux-saga/effects"
 import backend from "../config/axios"
 import {
-  fetchTeams,
-  fetchTeamsSucceeded,
   ITeam,
   IUser,
-} from "../reducers/teamsSlice"
+  fetchPeopleSucceeded,
+  fetchPeople,
+} from "../reducers/peopleSlice"
 
 function* runFetchTeams() {
   try {
@@ -15,14 +15,14 @@ function* runFetchTeams() {
     // Mapping team users to the full object
     teams = yield mapUsersToTeam(teams, users)
 
-    yield put(fetchTeamsSucceeded(teams))
+    yield put(fetchPeopleSucceeded({ teams, users }))
   } catch (e) {
     // handle errors
   }
 }
 
 function* tasksSaga() {
-  yield takeEvery(fetchTeams.type, runFetchTeams)
+  yield takeEvery(fetchPeople.type, runFetchTeams)
 }
 
 /**

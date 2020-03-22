@@ -3,28 +3,47 @@ import ReactDOM from "react-dom"
 import "./tailwind-generated.css"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import { Provider } from "react-redux"
+import { Provider, useSelector, useDispatch } from "react-redux"
 import { Spin } from "antd"
-import store from "./store"
+import store, { AppDispatch } from "./store"
+import { fetchPeople } from "./reducers/peopleSlice"
+import { AppState } from "./reducers/rootReducer"
 
 // Lazy loading main pages
 const Home = lazy(() => import("./pages/Home/index"))
+const Scheme = lazy(() => import("./pages/Scheme/index"))
 
 const App: React.FC = () => {
+  const teams = useSelector((state: AppState) => state.people.teams)
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  if (!teams) {
+    dispatch(fetchPeople())
+    return (
+      <div className="text-center pt-12">
+        <Spin tip="Loading data..."></Spin>
+      </div>
+    )
+  }
+
   return (
-    <Router>
-      <Suspense
-        fallback={
-          <div className="text-center pt-12">
-            <Spin></Spin>
-          </div>
-        }
-      >
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </Suspense>
-    </Router>
+    <div className="max-w-screen-md m-auto pt-12">
+      <Router>
+        <Suspense
+          fallback={
+            <div className="text-center">
+              <Spin tip="Loading page..."></Spin>
+            </div>
+          }
+        >
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/scheme/:teamId" component={Scheme} />
+          </Switch>
+        </Suspense>
+      </Router>
+    </div>
   )
 }
 

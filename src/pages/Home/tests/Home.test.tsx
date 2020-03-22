@@ -1,10 +1,11 @@
 import React from "react"
-import { render, getByText } from "@testing-library/react"
-import Home from "."
+import { render } from "@testing-library/react"
+import Home from ".."
 import { Provider } from "react-redux"
 import configureStore from "redux-mock-store"
-import { AppState } from "../../reducers/rootReducer"
-import { IUser, ITeam } from "../../reducers/teamsSlice"
+import { AppState } from "../../../reducers/rootReducer"
+import { IUser, ITeam } from "../../../reducers/peopleSlice"
+import { BrowserRouter as Router } from "react-router-dom"
 
 describe("Home component", () => {
   test("renders 1 team", () => {
@@ -22,15 +23,17 @@ describe("Home component", () => {
     }
     // mocking store for component
     const initialState: Partial<AppState> = {
-      teams: { teams: [team], users: [user] },
+      people: { teams: [team], users: [user] },
     }
     const mockStore = configureStore()
     const store = mockStore(initialState)
 
     const { getByText, getByTestId } = render(
-      <Provider store={store}>
-        <Home />
-      </Provider>,
+      <Router>
+        <Provider store={store}>
+          <Home />
+        </Provider>
+      </Router>,
     )
     expect(getByTestId("teams-container")).toBeTruthy()
     expect(getByText(/team name/i)).toBeInTheDocument()

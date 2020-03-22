@@ -1,5 +1,5 @@
 import React from "react"
-import { IUser, ITeam } from "../../reducers/teamsSlice"
+import { IUser, ITeam } from "../../reducers/peopleSlice"
 import { mapUsersToTeam } from "../teamsSaga"
 
 describe("Teams Saga", () => {

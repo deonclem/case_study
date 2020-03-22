@@ -1,4 +1,5 @@
-import teamsSlice from "./teamsSlice"
+import peopleSlice from "./peopleSlice"
+import schemesSlice from "./schemesSlice"
 import { combineReducers, PayloadAction } from "@reduxjs/toolkit"
 
 export type PayloadActionWithResolve<T> = {
@@ -6,7 +7,8 @@ export type PayloadActionWithResolve<T> = {
 } & PayloadAction<T>
 
 const rootReducer = combineReducers({
-  teams: teamsSlice.reducer,
+  people: peopleSlice.reducer,
+  schemes: schemesSlice.reducer,
 })
 
 export type AppState = ReturnType<typeof rootReducer>

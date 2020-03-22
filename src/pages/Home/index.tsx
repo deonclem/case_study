@@ -1,28 +1,18 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { fetchTeams } from "../../reducers/teamsSlice"
-import { Spin } from "antd"
-import { AppDispatch } from "../../store"
+import { useSelector } from "react-redux"
 import { AppState } from "../../reducers/rootReducer"
 import TeamCard from "./TeamCard"
 
+/**
+ * Displays the list of Teams
+ * Clicking on a Team will send the user to the Approval Scheme of that team
+ */
 const Home: React.FC = () => {
-  const teams = useSelector((state: AppState) => state.teams.teams)
-
-  const dispatch = useDispatch<AppDispatch>()
-
-  if (!teams) {
-    dispatch(fetchTeams())
-    return (
-      <div className="max-w-md m-auto pt-12">
-        <Spin tip="Loading..."></Spin>
-      </div>
-    )
-  }
+  const teams = useSelector((state: AppState) => state.people.teams)
 
   return (
-    <div className="px-8 pt-12 max-w-md m-auto" data-testid="teams-container">
-      {teams.map((team, i) => (
+    <div data-testid="teams-container">
+      {teams?.map((team, i) => (
         <TeamCard key={i} team={team} />
       ))}
     </div>
