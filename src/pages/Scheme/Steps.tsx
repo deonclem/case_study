@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "antd"
 import { IScheme, addStep } from "../../reducers/schemesSlice"
-import SchemeStep from "./SchemeStep"
+import Step from "./Step"
 import { ITeam } from "../../reducers/peopleSlice"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../store"
@@ -23,7 +23,7 @@ const Steps: React.FC<IStepsProps> = ({ team, scheme }) => {
     <div>
       {scheme.steps.map((step, i) => (
         <div className="mb-2" key={i}>
-          <SchemeStep index={i} team={team} step={step} users={team.users} />
+          <Step index={i} team={team} step={step} users={team.users} />
         </div>
       ))}
       <Button className="mt-2" onClick={() => addNewStep()}>

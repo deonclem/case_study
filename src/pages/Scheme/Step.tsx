@@ -22,7 +22,7 @@ interface ISchemeStepProps {
 /**
  * Displays a single threeshold
  */
-const SchemeStep: React.FC<ISchemeStepProps> = ({
+const Step: React.FC<ISchemeStepProps> = ({
   team,
   step,
   index,
@@ -90,4 +90,4 @@ const SchemeStep: React.FC<ISchemeStepProps> = ({
   )
 }
 
-export default SchemeStep
+export default Step
